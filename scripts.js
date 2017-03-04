@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   $('.btn-default').on('click', function(event) {
-    var buttonPressed = $(this).html();
+    var buttonPressed = $(this).text();
     console.log(buttonPressed);
 
     drawPin();
@@ -10,6 +10,15 @@ $(document).ready(function(){
 function drawPin() {
   var result = "*";
   $('#pin').append(result);
+}
+
+$('#c').on('click', function(event){
+  resetDrawPin();
+
+})
+
+function resetDrawPin() {
+  $('#pin').text("");
 }
 
 
