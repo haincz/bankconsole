@@ -1,50 +1,76 @@
-var correctPin = 4567;
-
+var CONSTANTS = Object.freeze({
+  PIN_CHAR: '*',
+  CORRECT_PIN: '4567',
+  MAX_PIN_LENGTH: 4,
+});
 
 function Pinpad() {
   this.pin = [];
 }
 
 Pinpad.prototype.push = function(buttonPressed) {
-  this.pin.push(buttonPressed);
+  if (this.pin.length < CONSTANTS.MAX_PIN_LENGTH) {
+    this.pin.push(buttonPressed);
+  }
 }
 
 Pinpad.prototype.get = function() {
   return this.pin.join('');
 }
 
+Pinpad.prototype.clear = function() {
+  this.pin = [];
+}
+
 var pinpad = new Pinpad();
 
-$(document).ready(function(){
-
+$(document).ready(function() {
 	$('.btn-default').on('click', function(event) {
  		var buttonPressed = $(this).text();
   
 		pinpad.push(buttonPressed);
-  		var pinData = pinpad.get();
-
   	
-  		drawPin();
-   	});
+  	drawPin();
+  });
 
-   	function drawPin() {
-  		var result = "*";
-  		$('#pin').append(result);
+  function drawPin() {
+    var length = pinpad.get().length;
+		$('#pin').text(CONSTANTS.PIN_CHAR.repeat(length));
 	}
 
 	$('#c').on('click', function(event){
   		resetDrawPin();
-
-	})
+	});
 
 	function resetDrawPin() {
-  		$('#pin').text("");
+    pinpad.clear();
+		drawPin();
 	}
 
 	$('#ok').on('click', function(event){
 		checkPin();
-	})
+	});
 
+  function checkPin() {
+    // if (isPinOk()) {
+    //   alert('success');
+    // } else {
+    //   alert('failed');
+    // }
 
-	
+    isPinOk() ? alert('success') : alert('failed');
+    resetDrawPin();
+  }
+
+  function isPinOk() {
+    // if (pinpad.get() === CONSTANTS.CORRECT_PIN) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+
+    //return pinpad.get() === CONSTANTS.CORRECT_PIN ? true : false;
+
+    return pinpad.get() === CONSTANTS.CORRECT_PIN;
+  }
 });
