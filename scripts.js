@@ -2,15 +2,16 @@ var CONSTANTS = Object.freeze({
   PIN_CHAR: '*',
   CORRECT_PIN: '4567',
   MAX_PIN_LENGTH: 4,
+  MAX_PIN_TRY: 3,
 });
 
 function Pinpad() {
   this.pin = [];
 }
 
-Pinpad.prototype.push = function(buttonPressed) {
+Pinpad.prototype.dodaj = function(xyz) {
   if (this.pin.length < CONSTANTS.MAX_PIN_LENGTH) {
-    this.pin.push(buttonPressed);
+    this.pin.push(xyz);
   }
 }
 
@@ -24,16 +25,18 @@ Pinpad.prototype.clear = function() {
 
 var pinpad = new Pinpad();
 
+
 $(document).ready(function() {
 	$('.btn-default').on('click', function(event) {
  		var buttonPressed = $(this).text();
   
-		pinpad.push(buttonPressed);
+		pinpad.dodaj(buttonPressed);
+
   	
   	drawPin();
   });
 
-  function drawPin() {
+	function drawPin() {
     var length = pinpad.get().length;
 		$('#pin').text(CONSTANTS.PIN_CHAR.repeat(length));
 	}
@@ -47,22 +50,49 @@ $(document).ready(function() {
 		drawPin();
 	}
 
+	var counter = 1;
+
 	$('#ok').on('click', function(event){
 		checkPin();
+		counter += 1;
+		console.log(counter);
 	});
 
-  function checkPin() {
+	function checkPin() {
     // if (isPinOk()) {
     //   alert('success');
     // } else {
     //   alert('failed');
     // }
 
-    isPinOk() ? alert('success') : alert('failed');
-    resetDrawPin();
-  }
+    	if (isPinBlocked()){
 
-  function isPinOk() {
+    		alert('dojebałeś');
+    	}
+
+    	else {
+
+    		isPinOk() ? alert('success') : alert('failed');
+    
+    	}
+
+    	resetDrawPin();
+	}
+
+
+	function isPinBlocked() {
+	//   if (counter === CONSTANTS.MAX_PIN_TRY) {
+	//     return true;
+	//   } else {
+	//     return false;
+	//   }
+	  
+	  return counter === CONSTANTS.MAX_PIN_TRY ? true : false;
+	}
+
+
+
+	function isPinOk() {
     // if (pinpad.get() === CONSTANTS.CORRECT_PIN) {
     //   return true;
     // } else {
@@ -72,5 +102,5 @@ $(document).ready(function() {
     //return pinpad.get() === CONSTANTS.CORRECT_PIN ? true : false;
 
     return pinpad.get() === CONSTANTS.CORRECT_PIN;
-  }
+	}
 });
