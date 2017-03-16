@@ -67,12 +67,12 @@ $(document).ready(function() {
 
     	if (isPinBlocked()){
 
-    		alert('dojebałeś');
+    		messanger.showPinMessage();
     	}
 
     	else {
 
-    		isPinOk() ? alert('success') : alert('failed');
+    		messanger.showPinMessage();
     
     	}
 
