@@ -36,71 +36,72 @@ $(document).ready(function() {
   	drawPin();
   });
 
-	function drawPin() {
-    var length = pinpad.get().length;
-		$('#pin').text(CONSTANTS.PIN_CHAR.repeat(length));
-	}
-
 	$('#c').on('click', function(event){
   		resetDrawPin();
 	});
 
-	function resetDrawPin() {
+  $('#ok').on('click', function(event){
+    checkPin();
+    counter += 1;
+    console.log(counter);
+  });
+	
+});
+
+var counter = 1;
+
+    function resetDrawPin() {
     pinpad.clear();
-		drawPin();
-	}
+    drawPin();
+  }
 
-	var counter = 1;
+  function drawPin() {
+    var length = pinpad.get().length;
+    $('#pin').text(CONSTANTS.PIN_CHAR.repeat(length));
+  }
 
-	$('#ok').on('click', function(event){
-		checkPin();
-		counter += 1;
-		console.log(counter);
-	});
 
-	function checkPin() {
+  function checkPin() {
     // if (isPinOk()) {
     //   alert('success');
     // } else {
     //   alert('failed');
     // }
 
-    	if (isPinBlocked()){
+      if (isPinBlocked()){
 
-    		messanger.showPinMessage();
-    	}
+        messanger.showPinMessage();
+      }
 
-    	else {
+      else {
 
-    		messanger.showPinMessage();
+        messanger.showPinMessage();
     
-    	}
+      }
 
-    	resetDrawPin();
-	}
-
-
-	function isPinBlocked() {
-	//   if (counter === CONSTANTS.MAX_PIN_TRY) {
-	//     return true;
-	//   } else {
-	//     return false;
-	//   }
-	  
-	  return counter === CONSTANTS.MAX_PIN_TRY ? true : false;
-	}
+      resetDrawPin();
+  }
 
 
-
-	function isPinOk() {
-    // if (pinpad.get() === CONSTANTS.CORRECT_PIN) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+  function isPinOk() {
+    if (pinpad.get() === CONSTANTS.CORRECT_PIN) {
+      return true;
+    } else {
+      return false;
+    }
 
     //return pinpad.get() === CONSTANTS.CORRECT_PIN ? true : false;
 
-    return pinpad.get() === CONSTANTS.CORRECT_PIN;
-	}
-});
+    //return pinpad.get() === CONSTANTS.CORRECT_PIN;
+  }
+
+
+  function isPinBlocked() {
+  //   if (counter === CONSTANTS.MAX_PIN_TRY) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+    
+    return counter === CONSTANTS.MAX_PIN_TRY ? true : false;
+  }

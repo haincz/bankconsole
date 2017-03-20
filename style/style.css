@@ -2,6 +2,7 @@
 	max-width: 1200px;
 	font-size: 0px;
 	margin: 0 auto;
+	position: relative;
 }
 
 .consosle {
@@ -31,4 +32,43 @@
 
 button:focus {
 	outline: 0;
+}
+
+#messanger {
+	position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+}
+
+.pinwrong {
+	background-color: #FF0000;
+}
+
+.pinok {
+	background-color: #08DF0C;
+}
+
+#messanger p {
+	position: absolute;
+    top: 40%;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
+}
+
+.closemessanger {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    filter: alpha(opacity=20);
+    top: 50%;
+    position: relative;
+    margin: 0 auto;
+    display: flex;
+    width: 200px;
+}
 }
